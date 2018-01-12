@@ -52,42 +52,42 @@ class DatabasePersistence
   end
 
   def delete_list(id)
-    sql = 'DELETE FROM lists WHERE id = $1'
+    sql = 'DELETE FROM lists WHERE id = $1;'
     query(sql, id)
   end
 
   def create_new_list(list_name)
-    sql = 'INSERT INTO lists (name) VALUES ($1)'
+    sql = 'INSERT INTO lists (name) VALUES ($1);'
     query(sql, list_name)
   end
 
   def update_list_name(id, new_name)
-    sql = 'UPDATE lists SET name = $1 WHERE id = $2'
+    sql = 'UPDATE lists SET name = $1 WHERE id = $2;'
     query(sql, new_name, id)
   end
 
   def create_new_todo(list_id, todo_name)
-    sql = 'INSERT INTO todos (list_id, name) VALUES ($1, $2)'
+    sql = 'INSERT INTO todos (list_id, name) VALUES ($1, $2);'
     query(sql, list_id, todo_name)
   end
 
   def delete_todo(list_id, todo_id)
-    sql = 'DELETE FROM todos WHERE list_id = $1 AND id = $2'
+    sql = 'DELETE FROM todos WHERE list_id = $1 AND id = $2;'
     query(sql, list_id, todo_id)
   end
 
   def update_todo_status(list_id, todo_id, new_status)
-    sql = 'UPDATE todos SET completed = $1 WHERE id = $2 AND list_id = $3'
+    sql = 'UPDATE todos SET completed = $1 WHERE id = $2 AND list_id = $3;'
     query(sql, new_status, todo_id, list_id)
   end
 
   def mark_all_todos_as_complete(id)
-    sql = 'UPDATE todos SET completed = true WHERE list_id = $1'
+    sql = 'UPDATE todos SET completed = true WHERE list_id = $1;'
     query(sql, id)
   end
 
   def find_todos(list_id)
-    sql = 'SELECT id, name, completed FROM todos WHERE list_id = $1'
+    sql = 'SELECT id, name, completed FROM todos WHERE list_id = $1 ORDER BY id;'
     result = query(sql, list_id)
 
     result.map do |tuple|
